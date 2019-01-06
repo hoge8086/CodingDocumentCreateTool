@@ -1,0 +1,37 @@
+﻿<Window x:Class="CodingDocumentCreateTool.CodingDocumentPreview"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CodingDocumentCreateTool"
+        mc:Ignorable="d"
+        Title="内部仕様書プレビュー" Height="300" Width="300" Loaded="WindowLoaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ComboBox x:Name="comboBoxSelectedModule" Grid.Row="0" Margin="10,10,10,0" SelectionChanged="SelectModuleChanged" />
+        <DataGrid Grid.Row="1" Margin="10,10,10,0" ItemsSource="{Binding Modules}" AutoGenerateColumns="False" IsReadOnly="True"
+            HeadersVisibility="Column"
+            AlternationCount="2"
+            AlternatingRowBackground="AliceBlue"
+            GridLinesVisibility="Vertical"
+            VerticalGridLinesBrush="LightGray">
+            <DataGrid.Columns>
+                <DataGridTextColumn  Header="モジュール" Binding="{Binding ModuleName}" Width="*"/>
+                <!--
+                <DataGridTextColumn Header="ファイル名" Binding="{Binding FileName}"/>
+                <DataGridTextColumn Header="関数宣言" Binding="{Binding FileName}" Width="*"/>
+                -->
+                <DataGridTextColumn Header="新規" Binding="{Binding Path=NewAddedStepNum}"/>
+                <DataGridTextColumn Header="修正" Binding="{Binding Path=ModifiedStepNum}"/>
+                <DataGridTextColumn Header="削除" Binding="{Binding Path=DeletedStepNum}"/>
+                <DataGridTextColumn Header="流用" Binding="{Binding Path=DiversionStepNum}"/>
+                <DataGridTextColumn Header="修正元" Binding="{Binding Path=OldTotalStepNum}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Grid.Row="2" HorizontalAlignment="Right" Content="OK" Click="ClickButton" Padding="15,0,15,0" Margin="0,10,10,10" />
+    </Grid>
+</Window>
