@@ -14,7 +14,7 @@ namespace KazoeciaoOutputAnalyzer.Tests
         [TestMethod()]
         public void ReadTest()
         {
-            var reader = new KazoeciaoOutputReader();
+            var reader = new KazoeciaoOutputReaderDefault();
             var soucesDiff = reader.Read("test.csv");
             Assert.AreEqual(16, soucesDiff.Functions().Count());
             Assert.AreEqual(18, soucesDiff.NewAddedStepNum);

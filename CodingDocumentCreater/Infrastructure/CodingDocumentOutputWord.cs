@@ -119,6 +119,7 @@ namespace CodingDocumentCreater.Infrastructure
                 return path;
             return System.IO.Path.Combine(new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).Directory.FullName, path);
         }
+
         #region IDisposable Support
         private bool disposedValue = false; // 重複する呼び出しを検出するには
 
@@ -129,21 +130,21 @@ namespace CodingDocumentCreater.Infrastructure
                 if (disposing)
                 {
                     // TODO: マネージ状態を破棄します (マネージ オブジェクト)。
-                    Release();
                 }
 
                 // TODO: アンマネージ リソース (アンマネージ オブジェクト) を解放し、下のファイナライザーをオーバーライドします。
                 // TODO: 大きなフィールドを null に設定します。
+                Release();
 
                 disposedValue = true;
             }
         }
 
         // TODO: 上の Dispose(bool disposing) にアンマネージ リソースを解放するコードが含まれる場合にのみ、ファイナライザーをオーバーライドします。
-        // ~CodingDocumentOutputWord() {
-        //   // このコードを変更しないでください。クリーンアップ コードを上の Dispose(bool disposing) に記述します。
-        //   Dispose(false);
-        // }
+         ~CodingDocumentOutputWord() {
+           // このコードを変更しないでください。クリーンアップ コードを上の Dispose(bool disposing) に記述します。
+           Dispose(false);
+         }
 
         // このコードは、破棄可能なパターンを正しく実装できるように追加されました。
         public void Dispose()

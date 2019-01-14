@@ -12,7 +12,7 @@ namespace CodingDocumentCreater.DomainService
         /// <returns></returns>
         public IEnumerable<FunctionDifference> QueryFunctionDifferencess(string kazoeciaoOutputPath)
         {
-            var reader = new KazoeciaoOutputReader();
+            var reader = new KazoeciaoOutputReaderDefault();
             return reader.Read(kazoeciaoOutputPath).Functions();
         }
 
@@ -23,7 +23,7 @@ namespace CodingDocumentCreater.DomainService
         /// <returns></returns>
         public IEnumerable<FunctionDifference> QueryModifiedFunctions(string kazoeciaoOutputPath)
         {
-            var reader = new KazoeciaoOutputReader();
+            var reader = new KazoeciaoOutputReaderDefault();
             return reader.Read(kazoeciaoOutputPath).SelectModefied().Functions();
         }
 
@@ -49,7 +49,7 @@ namespace CodingDocumentCreater.DomainService
         /// <returns></returns>
         public IEnumerable<ModuleDifferrenceDTO> QueryModuleDifferences(string kazoeciaoOutputPath, List<string> directoryPaths, double diversionCoefficient)
         {
-            var reader = new KazoeciaoOutputReader();
+            var reader = new KazoeciaoOutputReaderDefault();
             var soucesDiff = reader.Read(kazoeciaoOutputPath)
                                 .SelectModefied().
                                 ChangeDiversionCoefficient(diversionCoefficient);
@@ -72,7 +72,7 @@ namespace CodingDocumentCreater.DomainService
         /// <returns></returns>
         public IEnumerable<ModuleDifferrenceDTO> QueryModuleFileDifferences(string kazoeciaoOutputPath, string directoryPath, double diversionCoefficient)
         {
-            var reader = new KazoeciaoOutputReader();
+            var reader = new KazoeciaoOutputReaderDefault();
             var soucesDiff = reader.Read(kazoeciaoOutputPath)
                                     .SelectModefied()
                                     .SelectByDirectoryPath(directoryPath)
@@ -94,7 +94,7 @@ namespace CodingDocumentCreater.DomainService
         /// <returns></returns>
         public List<string> QueryModuleList(string kazoeciaoOutputPath)
         {
-            var reader = new KazoeciaoOutputReader();
+            var reader = new KazoeciaoOutputReaderDefault();
             var sourcesDiff = reader.Read(kazoeciaoOutputPath).SelectModefied();
             return sourcesDiff.DirectoryPaths();
         }

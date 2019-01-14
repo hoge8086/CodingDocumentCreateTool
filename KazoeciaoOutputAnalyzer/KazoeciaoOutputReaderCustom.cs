@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace KazoeciaoOutputAnalyzer
 {
-    public class KazoeciaoOutputReader
+    public class KazoeciaoOutputReaderCustom : IKazoeciaoOutputReader
     {
         public SourcesDifference Read(string csv_path)
         {
@@ -17,20 +17,20 @@ namespace KazoeciaoOutputAnalyzer
 
             using(var parser = new TextFieldParser(csv_path, Encoding.GetEncoding("shift_jis"))) {
                 parser.Delimiters = new string[] { "," };
-                while(!parser.EndOfData) {
+                for(int i=0; !parser.EndOfData; i++) {
                     var fields = parser.ReadFields();
-                    if (fields != null && fields.Count() == 9 && !string.IsNullOrEmpty(fields[2]))
+                    if(i >= 3 && fields != null)
                     {
                         try
                         {
                             functions.Add(new FunctionDifference(
-                                fields[2],
-                                RemoveNewOrOldPathPrefix(!string.IsNullOrEmpty(fields[0]) ?  fields[0] : fields[1]),
-                                int.Parse(fields[6]),
-                                int.Parse(fields[4]),
-                                int.Parse(fields[8]),
+                                RemoveClassNameFromMethod(fields[1]),
+                                System.IO.Path.GetDirectoryName(fields[0]),
                                 int.Parse(fields[5]),
-                                int.Parse(fields[7])));
+                                int.Parse(fields[3]),
+                                int.Parse(fields[6]),
+                                int.Parse(fields[2]),
+                                int.Parse(fields[9])));
                         }
                         catch { }
                     }
@@ -39,10 +39,9 @@ namespace KazoeciaoOutputAnalyzer
             return new SourcesDifference(functions);
         }
 
-        private string RemoveNewOrOldPathPrefix(string path)
+        private string RemoveClassNameFromMethod(string method)
         {
-            //return Regex.Replace(path, @".*(new|old)\\?", string.Empty, RegexOptions.IgnoreCase);
-            return Regex.Replace(path, @".*(new|old)(?=\\)", string.Empty, RegexOptions.IgnoreCase);
+            return Regex.Replace(method, @"\w+(::)", string.Empty, RegexOptions.IgnoreCase);
         }
     }
 }

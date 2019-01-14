@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FunctionDifference.cs" />
-    <Compile Include="KazoeciaoOutputReader.cs" />
+    <Compile Include="IKazoeciaoOutputReader.cs" />
+    <Compile Include="KazoeciaoOutputReaderCustom.cs" />
+    <Compile Include="KazoeciaoOutputReaderDefault.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SourcesDifference.cs" />
     <Compile Include="StepDifference.cs" />

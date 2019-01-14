@@ -25,7 +25,7 @@ namespace CodingDocumentCreater.DomainService
         /// <param name="kazoeciaoOutputPath"></param>
         public void CreateModifiedFunctionList(string kazoeciaoOutputPath)
         {
-            var reader = new KazoeciaoOutputReader();
+            var reader = new KazoeciaoOutputReaderDefault();
             var soucesDiff = reader.Read(kazoeciaoOutputPath).SelectModefied();
             using (var output = outputFactory.CreateFunctionListOutput())
             {
@@ -46,7 +46,7 @@ namespace CodingDocumentCreater.DomainService
         /// <param name="diversionCoefficient"></param>
         public void CreateCodingDocument(string kazoeciaoOutputPath, List<string> directoryPaths, double diversionCoefficient)
         {
-            var reader = new KazoeciaoOutputReader();
+            var reader = new KazoeciaoOutputReaderDefault();
             var sourcesDiff = reader.Read(kazoeciaoOutputPath).SelectModefied().ChangeDiversionCoefficient(diversionCoefficient);
             using (var output = outputFactory.CreateCodingDocumentOutput())
             {
