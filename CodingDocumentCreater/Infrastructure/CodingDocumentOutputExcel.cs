@@ -28,25 +28,25 @@ namespace CodingDocumentCreater.Infrastructure
             base.Close();
         }
 
-        public void WriteTotalDiff(StepDifference funcDiff)
+        public void WriteTotalDiff(IStepDifference funcDiff)
         {
             rowIndex++;
         }
 
-        public void WriteModuleDiff(string moduleName, StepDifference moduleDiff)
+        public void WriteModuleDiff(string moduleName, IStepDifference moduleDiff)
         {
             Write(rowIndex, 1, moduleName);
             rowIndex++;
         }
 
-        public void WriteFileDiff(string fileName, StepDifference fileDiff)
+        public void WriteFileDiff(string fileName, IStepDifference fileDiff)
         {
             string[] values = {
                 fileName,
                 fileDiff.NewAddedStepNum.ToString(),
                 fileDiff.ModifiedStepNum.ToString(),
                 fileDiff.DeletedStepNum.ToString(),
-                fileDiff.MeasuredStepNum().ToString(),
+                //fileDiff.MeasuredStepNum().ToString(),
                 fileDiff.DiversionStepNum.ToString(),
             };
             Write(rowIndex, 1, values);

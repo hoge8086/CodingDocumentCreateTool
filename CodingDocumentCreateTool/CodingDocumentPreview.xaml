@@ -29,7 +29,6 @@
                 <DataGridTextColumn Header="修正" Binding="{Binding Path=ModifiedStepNum}"/>
                 <DataGridTextColumn Header="削除" Binding="{Binding Path=DeletedStepNum}"/>
                 <DataGridTextColumn Header="流用" Binding="{Binding Path=DiversionStepNum}"/>
-                <DataGridTextColumn Header="修正元" Binding="{Binding Path=OldTotalStepNum}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button Grid.Row="2" HorizontalAlignment="Right" Content="OK" Click="ClickButton" Padding="15,0,15,0" Margin="0,10,10,10" />

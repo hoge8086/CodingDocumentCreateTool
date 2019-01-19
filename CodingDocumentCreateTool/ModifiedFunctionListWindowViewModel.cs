@@ -19,7 +19,7 @@ namespace CodingDocumentCreateTool
             public string FunctionName { get; set; }
             public string ModifiedType{ get; set; }
 
-            public Function(FunctionDifference funcDiff)
+            public Function(IFunctionDifference funcDiff)
             {
                 this.Module = funcDiff.DirectoryPath;
                 this.FileName = funcDiff.FileName;

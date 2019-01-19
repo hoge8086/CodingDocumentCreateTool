@@ -9,11 +9,13 @@
         Title="内部仕様書生成" Height="300" Width="300" Loaded="WindowLoaded">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <DataGrid Grid.Row="0" Margin="10,10,10,0" ItemsSource="{Binding Path=Modules}" AutoGenerateColumns="False"
+        <TextBlock Grid.Row="0" Text="出力したいモジュールを編集・削除・追加してください." Margin="10,10,10,10" />
+        <DataGrid Grid.Row="1" Margin="10,0,10,0" ItemsSource="{Binding Path=Modules}" AutoGenerateColumns="False"
             HeadersVisibility="Column"
             AlternationCount="2"
             AlternatingRowBackground="AliceBlue"
@@ -23,7 +25,7 @@
                 <DataGridTextColumn  Header="モジュール" Binding="{Binding Path=Module}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Grid  Grid.Row="1">
+        <Grid  Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using KazoeciaoOutputAnalyzer.KazoeciaoDefault;
+
 namespace KazoeciaoOutputAnalyzer.Tests
 {
     [TestClass()]
@@ -15,12 +17,12 @@ namespace KazoeciaoOutputAnalyzer.Tests
         [TestInitialize()]
         public void TestInitialize()
         {
-            FunctionDifference[] funcs =
+            IFunctionDifference[] funcs =
             {
-                new FunctionDifference("t1", @"c:\TestProject\TestModule1\TestClassA.cpp", 5, 0, 0, 5, 0),
-                new FunctionDifference("t2", @"c:\TestProject\TestModule1\TestClassA.cpp", 0, 0, 0, 5, 5),
-                new FunctionDifference("t3", @"c:\TestProject\TestModule1\TestClassB.cpp", 0, 5, 0, 5, 5),
-                new FunctionDifference("t4", @"c:\TestProject\TestModule2\TestClassC.cpp", 0, 0, 5, 5, 0),
+                new FunctionDifferenceDefault("t1", @"TestProject\TestModule1\TestClassA.cpp", 5, 0, 0, 5, 0),
+                new FunctionDifferenceDefault("t2", @"TestProject\TestModule1\TestClassA.cpp", 0, 0, 0, 5, 5),
+                new FunctionDifferenceDefault("t3", @"TestProject\TestModule1\TestClassB.cpp", 0, 5, 0, 5, 5),
+                new FunctionDifferenceDefault("t4", @"TestProject\TestModule2\TestClassC.cpp", 0, 0, 5, 5, 0),
             };
             sourcesDiff = new SourcesDifference(funcs.ToList());
         }
@@ -31,7 +33,7 @@ namespace KazoeciaoOutputAnalyzer.Tests
             Assert.AreEqual(5, sourcesDiff.ModifiedStepNum);
             Assert.AreEqual(5, sourcesDiff.NewAddedStepNum);
             Assert.AreEqual(5, sourcesDiff.DeletedStepNum);
-            Assert.AreEqual(20, sourcesDiff.OldTotalStepNum);
+            //Assert.AreEqual(20, sourcesDiff.OldTotalStepNum);
             Assert.AreEqual(10, sourcesDiff.DiversionStepNum);
             Assert.AreEqual(15, sourcesDiff.MeasuredStepNum());
             Assert.AreEqual(15, sourcesDiff.MeasuredStepNumWithDiversion());
@@ -52,8 +54,8 @@ namespace KazoeciaoOutputAnalyzer.Tests
         {
             var r = sourcesDiff.DirectoryPaths();
             Assert.AreEqual(2, r.Count());
-            Assert.IsTrue(r.Any(x => x == @"c:\TestProject\TestModule1"));
-            Assert.IsTrue(r.Any(x => x == @"c:\TestProject\TestModule2"));
+            Assert.IsTrue(r.Any(x => x == @"\TestProject\TestModule1"));
+            Assert.IsTrue(r.Any(x => x == @"\TestProject\TestModule2"));
         }
 
         [TestMethod()]
@@ -69,7 +71,7 @@ namespace KazoeciaoOutputAnalyzer.Tests
         [TestMethod()]
         public void SelectByDirectoryPathTest_Module1()
         {
-            var r = sourcesDiff.SelectByDirectoryPath(@"c:\TestProject\TestModule1");
+            var r = sourcesDiff.SelectByDirectoryPath(@"\TestProject\TestModule1");
             Assert.AreEqual(3, r.Functions().Count());
             Assert.IsTrue(r.Functions().Any(x => x.FunctionName == "t1"));
             Assert.IsTrue(r.Functions().Any(x => x.FunctionName == "t2"));
@@ -79,7 +81,7 @@ namespace KazoeciaoOutputAnalyzer.Tests
         [TestMethod()]
         public void SelectByDirectoryPathTest_ProjectDir()
         {
-            var r = sourcesDiff.SelectByDirectoryPath(@"c:\TestProject\");
+            var r = sourcesDiff.SelectByDirectoryPath(@"\TestProject\");
             Assert.AreEqual(4, r.Functions().Count());
             Assert.IsTrue(r.Functions().Any(x => x.FunctionName == "t1"));
             Assert.IsTrue(r.Functions().Any(x => x.FunctionName == "t2"));

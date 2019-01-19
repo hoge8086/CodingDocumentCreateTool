@@ -5,15 +5,20 @@ namespace CodingDocumentCreater.DomainService
 {
     public class KazoeciaoQueryService
     {
+        IKazoeciaoOutputReader kazoeciaoReader = null;
+
+        public KazoeciaoQueryService(IKazoeciaoOutputReader kazoeciaoReader)
+        {
+            this.kazoeciaoReader = kazoeciaoReader;
+        }
         /// <summary>
         /// 関数一覧を取得する
         /// </summary>
         /// <param name="kazoeciaoOutputPath"></param>
         /// <returns></returns>
-        public IEnumerable<FunctionDifference> QueryFunctionDifferencess(string kazoeciaoOutputPath)
+        public IEnumerable<IFunctionDifference> QueryFunctionDifferencess(string kazoeciaoOutputPath)
         {
-            var reader = new KazoeciaoOutputReaderDefault();
-            return reader.Read(kazoeciaoOutputPath).Functions();
+            return kazoeciaoReader.Read(kazoeciaoOutputPath).Functions();
         }
 
         /// <summary>
@@ -21,10 +26,9 @@ namespace CodingDocumentCreater.DomainService
         /// </summary>
         /// <param name="kazoeciaoOutputPath"></param>
         /// <returns></returns>
-        public IEnumerable<FunctionDifference> QueryModifiedFunctions(string kazoeciaoOutputPath)
+        public IEnumerable<IFunctionDifference> QueryModifiedFunctions(string kazoeciaoOutputPath)
         {
-            var reader = new KazoeciaoOutputReaderDefault();
-            return reader.Read(kazoeciaoOutputPath).SelectModefied().Functions();
+            return kazoeciaoReader.Read(kazoeciaoOutputPath).SelectModefied().Functions();
         }
 
         /// <summary>
@@ -49,8 +53,7 @@ namespace CodingDocumentCreater.DomainService
         /// <returns></returns>
         public IEnumerable<ModuleDifferrenceDTO> QueryModuleDifferences(string kazoeciaoOutputPath, List<string> directoryPaths, double diversionCoefficient)
         {
-            var reader = new KazoeciaoOutputReaderDefault();
-            var soucesDiff = reader.Read(kazoeciaoOutputPath)
+            var soucesDiff = kazoeciaoReader.Read(kazoeciaoOutputPath)
                                 .SelectModefied().
                                 ChangeDiversionCoefficient(diversionCoefficient);
 
@@ -72,8 +75,7 @@ namespace CodingDocumentCreater.DomainService
         /// <returns></returns>
         public IEnumerable<ModuleDifferrenceDTO> QueryModuleFileDifferences(string kazoeciaoOutputPath, string directoryPath, double diversionCoefficient)
         {
-            var reader = new KazoeciaoOutputReaderDefault();
-            var soucesDiff = reader.Read(kazoeciaoOutputPath)
+            var soucesDiff = kazoeciaoReader.Read(kazoeciaoOutputPath)
                                     .SelectModefied()
                                     .SelectByDirectoryPath(directoryPath)
                                     .ChangeDiversionCoefficient(diversionCoefficient);
@@ -94,8 +96,7 @@ namespace CodingDocumentCreater.DomainService
         /// <returns></returns>
         public List<string> QueryModuleList(string kazoeciaoOutputPath)
         {
-            var reader = new KazoeciaoOutputReaderDefault();
-            var sourcesDiff = reader.Read(kazoeciaoOutputPath).SelectModefied();
+            var sourcesDiff = kazoeciaoReader.Read(kazoeciaoOutputPath).SelectModefied();
             return sourcesDiff.DirectoryPaths();
         }
     }

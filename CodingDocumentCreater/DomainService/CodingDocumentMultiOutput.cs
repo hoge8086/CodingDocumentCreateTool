@@ -51,7 +51,7 @@ namespace CodingDocumentCreater.DomainService
             }
         }
 
-        public void WriteFileDiff(string fileName, StepDifference fileDiff)
+        public void WriteFileDiff(string fileName, IStepDifference fileDiff)
         {
             for(int i=0; i<outputs.Count(); i++)
             {
@@ -62,7 +62,7 @@ namespace CodingDocumentCreater.DomainService
             }
         }
 
-        public void WriteModuleDiff(string moduleName, StepDifference moduleDiff)
+        public void WriteModuleDiff(string moduleName, IStepDifference moduleDiff)
         {
             for(int i=0; i<outputs.Count(); i++)
             {
@@ -73,7 +73,7 @@ namespace CodingDocumentCreater.DomainService
             }
         }
 
-        public void WriteTotalDiff(StepDifference funcDiff)
+        public void WriteTotalDiff(IStepDifference funcDiff)
         {
             for(int i=0; i<outputs.Count(); i++)
             {

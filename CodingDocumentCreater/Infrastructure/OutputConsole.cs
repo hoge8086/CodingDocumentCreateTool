@@ -59,25 +59,25 @@ namespace CodingDocumentCreater.Infrastructure
             //Console.SetOut(writer);
         }
 
-        public void Write(FunctionDifference funcDiff)
+        public void Write(IFunctionDifference funcDiff)
         {
             Console.Write(funcDiff.ToString());
             System.Diagnostics.Debug.WriteLine(funcDiff.ToString());
         }
 
-        public void WriteFileDiff(string fileName, StepDifference fileDiff)
+        public void WriteFileDiff(string fileName, IStepDifference fileDiff)
         {
             Console.Write(fileName +  ":" + fileDiff.ToString());
             System.Diagnostics.Debug.WriteLine(fileName +  ":" + fileDiff.ToString());
         }
 
-        public void WriteModuleDiff(string moduleName, StepDifference moduleDiff)
+        public void WriteModuleDiff(string moduleName, IStepDifference moduleDiff)
         {
             Console.Write(moduleName +  ":" + moduleDiff.ToString());
             System.Diagnostics.Debug.WriteLine(moduleName +  ":" + moduleDiff.ToString());
         }
 
-        public void WriteTotalDiff(StepDifference totalDiff)
+        public void WriteTotalDiff(IStepDifference totalDiff)
         {
             Console.Write("Total:" + totalDiff.ToString());
             System.Diagnostics.Debug.WriteLine("Total:" + totalDiff.ToString());

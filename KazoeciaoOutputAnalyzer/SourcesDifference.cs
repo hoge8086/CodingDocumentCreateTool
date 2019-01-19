@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace KazoeciaoOutputAnalyzer
 {
-    public class SourcesDifference : StepDifference
+    public class SourcesDifference : IStepDifference
     {
-        private List<FunctionDifference> functions;
+        private List<IFunctionDifference> functions;
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
         /// <param name="functions"></param>
-        public SourcesDifference(List<FunctionDifference> functions, double diversionCoefficient = 0.0)
+        public SourcesDifference(List<IFunctionDifference> functions, double diversionCoefficient = 0.0)
         {
             this.functions = functions;
             this.DiversionCoefficient = diversionCoefficient;
@@ -24,9 +24,9 @@ namespace KazoeciaoOutputAnalyzer
         /// 関数一覧を取得
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<FunctionDifference> Functions()
+        public IEnumerable<IFunctionDifference> Functions()
         {
-            return new List<FunctionDifference>(functions);
+            return new List<IFunctionDifference>(functions);
         }
 
         /// <summary>
@@ -94,24 +94,29 @@ namespace KazoeciaoOutputAnalyzer
             return new SourcesDifference(funcs.ToList(), DiversionCoefficient);
         }
 
+        /// <summary>
+        /// 新規換算ステップ数
+        /// </summary>
+        /// <returns></returns>
+        public int MeasuredStepNum()
+        {
+            return NewAddedStepNum + ModifiedStepNum + DeletedStepNum;
+        }
+
         // 修正行数
-        public override int ModifiedStepNum {
+        public int ModifiedStepNum {
             get { return functions.Sum(x => x.ModifiedStepNum); }
         }
         // 追加行数
-        public override int NewAddedStepNum {
+        public int NewAddedStepNum {
             get { return functions.Sum(x => x.NewAddedStepNum); }
         }
         // 削除行数
-        public override int DeletedStepNum {
+        public int DeletedStepNum {
             get { return functions.Sum(x => x.DeletedStepNum); }
         }
-        // 修正前の関数全体の行数
-        public override int OldTotalStepNum {
-            get { return functions.Sum(x => x.OldTotalStepNum); }
-        }
         // 流用行数
-        public override int DiversionStepNum {
+        public int DiversionStepNum {
             get { return functions.Sum(x => x.DiversionStepNum); }
         }
         // 流用行数

@@ -73,32 +73,32 @@ namespace CodingDocumentCreater.Infrastructure
             }
         }
 
-        public void WriteFileDiff(string fileName, StepDifference fileDiff)
+        public void WriteFileDiff(string fileName, IStepDifference fileDiff)
         {
             // 記載なし
         }
 
-        public void WriteModuleDiff(string moduleName, StepDifference moduleDiff)
+        public void WriteModuleDiff(string moduleName, IStepDifference moduleDiff)
         {
             string[] values = {
                 moduleName,
                 moduleDiff.NewAddedStepNum.ToString(),
                 moduleDiff.ModifiedStepNum.ToString(),
                 moduleDiff.DeletedStepNum.ToString(),
-                moduleDiff.MeasuredStepNum().ToString(),
+                //moduleDiff.MeasuredStepNum().ToString(),
                 moduleDiff.DiversionStepNum.ToString(),
             };
             Write(1, values);
         }
 
-        public void WriteTotalDiff(StepDifference totalDiff)
+        public void WriteTotalDiff(IStepDifference totalDiff)
         {
             string[] values = {
                 "全体",
                 totalDiff.NewAddedStepNum.ToString(),
                 totalDiff.ModifiedStepNum.ToString(),
                 totalDiff.DeletedStepNum.ToString(),
-                totalDiff.MeasuredStepNum().ToString(),
+                //totalDiff.MeasuredStepNum().ToString(),
                 totalDiff.DiversionStepNum.ToString(),
             };
             Write(1, values);

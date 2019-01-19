@@ -37,8 +37,9 @@ namespace CodingDocumentCreateTool
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            DocumentCreateService = new CodingDocumentCreateService(new OutputFactory());
-            QueryService = new KazoeciaoQueryService();
+            var reader = new KazoeciaoOutputAnalyzer.KazoeciaoDefault.KazoeciaoOutputReaderDefault();
+            DocumentCreateService = new CodingDocumentCreateService(new OutputFactory(), reader);
+            QueryService = new KazoeciaoQueryService(reader);
         }
     }
 }

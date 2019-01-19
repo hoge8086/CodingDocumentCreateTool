@@ -13,10 +13,12 @@ namespace CodingDocumentCreater.DomainService
     public class CodingDocumentCreateService
     {
         IOutputFactory outputFactory = null;
+        IKazoeciaoOutputReader kazoeciaoReader = null;
 
-        public CodingDocumentCreateService(IOutputFactory outputFactory)
+        public CodingDocumentCreateService(IOutputFactory outputFactory, IKazoeciaoOutputReader kazoeciaoReader)
         {
             this.outputFactory = outputFactory;
+            this.kazoeciaoReader = kazoeciaoReader;
         }
         
         /// <summary>
@@ -25,8 +27,7 @@ namespace CodingDocumentCreater.DomainService
         /// <param name="kazoeciaoOutputPath"></param>
         public void CreateModifiedFunctionList(string kazoeciaoOutputPath)
         {
-            var reader = new KazoeciaoOutputReaderDefault();
-            var soucesDiff = reader.Read(kazoeciaoOutputPath).SelectModefied();
+            var soucesDiff = kazoeciaoReader.Read(kazoeciaoOutputPath).SelectModefied();
             using (var output = outputFactory.CreateFunctionListOutput())
             {
                 output.Open();
@@ -46,8 +47,7 @@ namespace CodingDocumentCreater.DomainService
         /// <param name="diversionCoefficient"></param>
         public void CreateCodingDocument(string kazoeciaoOutputPath, List<string> directoryPaths, double diversionCoefficient)
         {
-            var reader = new KazoeciaoOutputReaderDefault();
-            var sourcesDiff = reader.Read(kazoeciaoOutputPath).SelectModefied().ChangeDiversionCoefficient(diversionCoefficient);
+            var sourcesDiff = kazoeciaoReader.Read(kazoeciaoOutputPath).SelectModefied().ChangeDiversionCoefficient(diversionCoefficient);
             using (var output = outputFactory.CreateCodingDocumentOutput())
             {
                 output.Open();

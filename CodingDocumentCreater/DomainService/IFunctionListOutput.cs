@@ -9,7 +9,7 @@ namespace CodingDocumentCreater.DomainService
     public interface IFunctionListOutput: IDisposable
     {
         void Open();
-        void Write(FunctionDifference funcDiff);
+        void Write(IFunctionDifference funcDiff);
         void Close();
     }
 }

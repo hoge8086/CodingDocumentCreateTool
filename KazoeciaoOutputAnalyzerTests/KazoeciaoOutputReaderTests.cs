@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using KazoeciaoOutputAnalyzer.KazoeciaoDefault;
+
 namespace KazoeciaoOutputAnalyzer.Tests
 {
     [TestClass()]
@@ -18,11 +20,10 @@ namespace KazoeciaoOutputAnalyzer.Tests
             var soucesDiff = reader.Read("test.csv");
             Assert.AreEqual(16, soucesDiff.Functions().Count());
             Assert.AreEqual(18, soucesDiff.NewAddedStepNum);
-            Assert.AreEqual(32, soucesDiff.OldTotalStepNum);
+            //Assert.AreEqual(32, soucesDiff.OldTotalStepNum);
             Assert.AreEqual(12, soucesDiff.ModifiedStepNum);
             Assert.AreEqual(26, soucesDiff.DiversionStepNum);
             Assert.AreEqual(10, soucesDiff.DeletedStepNum);
-            var modules = soucesDiff.DirectoryPaths();
         }
     }
 }

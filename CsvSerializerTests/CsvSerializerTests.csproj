@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B1048372-CCB7-4DFC-84ED-BB35508FFA12}</ProjectGuid>
+    <ProjectGuid>{922D084C-F263-4D0E-AF64-A532A62F7A25}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KazoeciaoOutputAnalyzerTests</RootNamespace>
-    <AssemblyName>KazoeciaoOutputAnalyzerTests</AssemblyName>
+    <RootNamespace>CsvSerializerTests</RootNamespace>
+    <AssemblyName>CsvSerializerTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -55,9 +55,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="FunctionDefferenceTests.cs" />
-    <Compile Include="SourcesDifferenceTests.cs" />
-    <Compile Include="KazoeciaoOutputReaderTests.cs" />
+    <Compile Include="CsvSerializerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -67,9 +65,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\KazoeciaoOutputAnalyzer\KazoeciaoOutputAnalyzer.csproj">
-      <Project>{01B14592-6302-4C46-BD6B-34BC3E5F390C}</Project>
-      <Name>KazoeciaoOutputAnalyzer</Name>
+    <ProjectReference Include="..\CsvSerializer\CsvSerializer.csproj">
+      <Project>{93E82F9A-454E-4EE5-A0F9-177E48EC1CEC}</Project>
+      <Name>CsvSerializer</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

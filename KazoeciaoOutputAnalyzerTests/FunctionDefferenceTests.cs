@@ -5,20 +5,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KazoeciaoOutputAnalyzer.KazoeciaoDefault;
 
 namespace KazoeciaoOutputAnalyzer.Tests
 {
     [TestClass()]
     public class FunctionDefferenceTests
     {
-        private FunctionDifference CreateFunctionDefferenceSample(
+        private IFunctionDifference CreateFunctionDefferenceSample(
             int modifiedStepNum,
             int newAddedStepNum,
             int deletedStepNum,
             int oldTotalStepNum,
             int diversionStepNum)
         {
-            return new FunctionDifference("test()", @"C:\TestProject\TestModule\TestClass.cpp",
+            return new FunctionDifferenceDefault("test()", @"TestProject\TestModule\TestClass.cpp",
                         modifiedStepNum,
                         newAddedStepNum,
                         deletedStepNum,
@@ -30,7 +31,7 @@ namespace KazoeciaoOutputAnalyzer.Tests
         {
             var func = CreateFunctionDefferenceSample(0, 5, 0, 0, 0);
             Assert.AreEqual("test()", func.FunctionName);
-            Assert.AreEqual(@"C:\TestProject\TestModule", func.DirectoryPath);
+            Assert.AreEqual(@"\TestProject\TestModule", func.DirectoryPath);
             Assert.AreEqual(@"TestClass", func.FileName);
         }
         [TestMethod()]

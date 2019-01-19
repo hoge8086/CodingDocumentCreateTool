@@ -29,7 +29,7 @@ namespace CodingDocumentCreater.Infrastructure
             base.Close();
         }
 
-        public void Write(FunctionDifference funcDiff)
+        public void Write(IFunctionDifference funcDiff)
         {
             string[] values = {
                 funcDiff.IsNewAdded() ? "新規" : (funcDiff.IsDeleted() ? "削除" : "修正"),

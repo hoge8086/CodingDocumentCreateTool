@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{01B14592-6302-4C46-BD6B-34BC3E5F390C}</ProjectGuid>
+    <ProjectGuid>{93E82F9A-454E-4EE5-A0F9-177E48EC1CEC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KazoeciaoOutputAnalyzer</RootNamespace>
-    <AssemblyName>KazoeciaoOutputAnalyzer</AssemblyName>
+    <RootNamespace>CsvSerializer</RootNamespace>
+    <AssemblyName>CsvSerializer</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -22,7 +22,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -30,31 +30,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IFunctionDifference.cs" />
-    <Compile Include="IKazoeciaoOutputReader.cs" />
-    <Compile Include="KazoeciaoDefault\FunctionDifferenceDefault.cs" />
-    <Compile Include="KazoeciaoDefault\KazoeciaoOutputReaderDefault.cs" />
+    <Compile Include="CsvSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SourcesDifference.cs" />
-    <Compile Include="IStepDifference.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="KazoeciaoCustom\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CsvSerializer\CsvSerializer.csproj">
-      <Project>{93e82f9a-454e-4ee5-a0f9-177e48ec1cec}</Project>
-      <Name>CsvSerializer</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

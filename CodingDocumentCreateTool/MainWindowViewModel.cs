@@ -20,9 +20,8 @@ namespace CodingDocumentCreateTool
             public string ModifiedStepNum { get; set; }
             public string DeletedStepNum { get; set; }
             public string DiversionStepNum { get; set; }
-            public string OldTotalStepNum { get; set; }
 
-            public Function(FunctionDifference funcDiff)
+            public Function(IFunctionDifference funcDiff)
             {
                 this.Module = funcDiff.DirectoryPath;
                 this.FileName = funcDiff.FileName;
@@ -31,7 +30,6 @@ namespace CodingDocumentCreateTool
                 this.ModifiedStepNum = funcDiff.ModifiedStepNum.ToString();
                 this.DeletedStepNum = funcDiff.DeletedStepNum.ToString();
                 this.DiversionStepNum = funcDiff.DiversionStepNum.ToString();
-                this.OldTotalStepNum = funcDiff.OldTotalStepNum.ToString();
             }
         }
 
