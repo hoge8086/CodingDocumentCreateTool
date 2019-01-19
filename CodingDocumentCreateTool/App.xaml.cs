@@ -19,21 +19,6 @@ namespace CodingDocumentCreateTool
         static public CodingDocumentCreateService DocumentCreateService = null;
         static public KazoeciaoQueryService QueryService = null;
 
-        public class OutputFactory : IOutputFactory
-        {
-            public ICodingDocumentOutput CreateCodingDocumentOutput()
-            {
-                return new CodingDocumentMultiOutput(
-                    new CodingDocumentOutputExcel(),
-                    new CodingDocumentOutputWord());
-            }
-
-            public IFunctionListOutput CreateFunctionListOutput()
-            {
-                return new FunctionListOutputExcel();
-            }
-        }
-
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);

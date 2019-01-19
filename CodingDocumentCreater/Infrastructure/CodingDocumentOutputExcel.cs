@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 using CodingDocumentCreater.DomainService;
 using KazoeciaoOutputAnalyzer;
+using OperrateExcel;
 
 namespace CodingDocumentCreater.Infrastructure
 {
-    public class CodingDocumentOutputExcel : OperateExcelTemplate, ICodingDocumentOutput
+    public class CodingDocumentOutputExcel : OperateExcel, ICodingDocumentOutput
     {
         int rowIndex = 1;
 

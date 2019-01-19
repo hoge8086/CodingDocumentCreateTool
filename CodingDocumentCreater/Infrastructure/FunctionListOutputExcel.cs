@@ -8,10 +8,11 @@ using System.Runtime.InteropServices;
 
 using CodingDocumentCreater.DomainService;
 using KazoeciaoOutputAnalyzer;
+using OperrateExcel;
 
 namespace CodingDocumentCreater.Infrastructure
 {
-    public class FunctionListOutputExcel : OperateExcelTemplate, IFunctionListOutput
+    public class FunctionListOutputExcel : OperateExcel, IFunctionListOutput
     {
         int functionNum = 1;
 
