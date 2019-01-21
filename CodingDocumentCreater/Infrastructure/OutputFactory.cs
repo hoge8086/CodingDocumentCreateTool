@@ -12,10 +12,5 @@ namespace CodingDocumentCreater.Infrastructure
                 new CodingDocumentOutputExcel(),
                 new CodingDocumentOutputWord());
         }
-
-        public IFunctionListOutput CreateFunctionListOutput()
-        {
-            return new FunctionListOutputExcel();
-        }
     }
 }

@@ -18,70 +18,14 @@ namespace CodingDocumentCreater.DomainService
         {
             this.outputs = outputs;
         }
-        public void Close()
+
+        public void WriteModuleDiffList(List<CodingDocumentCreateService.ModuleDifferrenceList> moduleDiffList)
         {
-            for(int i=0; i<outputs.Count(); i++)
+            foreach(var output in outputs)
             {
-                if(outputs[i] != null)
-                {
-                    try
-                    {
-                        outputs[i].Close();
-                    }finally
-                    {
-                        outputs[i] = null;
-                    }
-                }
+                output.WriteModuleDiffList(moduleDiffList);
             }
         }
 
-        public void Dispose()
-        {
-            Close();
-        }
-
-        public void Open()
-        {
-            for(int i=0; i<outputs.Count(); i++)
-            {
-                if(outputs[i] != null)
-                {
-                    outputs[i].Open();
-                }
-            }
-        }
-
-        public void WriteFileDiff(string fileName, IStepDifference fileDiff)
-        {
-            for(int i=0; i<outputs.Count(); i++)
-            {
-                if(outputs[i] != null)
-                {
-                    outputs[i].WriteFileDiff(fileName, fileDiff);
-                }
-            }
-        }
-
-        public void WriteModuleDiff(string moduleName, IStepDifference moduleDiff)
-        {
-            for(int i=0; i<outputs.Count(); i++)
-            {
-                if(outputs[i] != null)
-                {
-                    outputs[i].WriteModuleDiff(moduleName, moduleDiff);
-                }
-            }
-        }
-
-        public void WriteTotalDiff(IStepDifference funcDiff)
-        {
-            for(int i=0; i<outputs.Count(); i++)
-            {
-                if(outputs[i] != null)
-                {
-                    outputs[i].WriteTotalDiff(funcDiff);
-                }
-            }
-        }
     }
 }

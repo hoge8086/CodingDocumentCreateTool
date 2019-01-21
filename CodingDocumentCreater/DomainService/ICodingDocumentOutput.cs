@@ -1,14 +1,11 @@
 ﻿using KazoeciaoOutputAnalyzer;
 using System;
+using System.Collections.Generic;
 
 namespace CodingDocumentCreater.DomainService
 {
-    public interface ICodingDocumentOutput : IDisposable
+    public interface ICodingDocumentOutput
     {
-        void Open();
-        void WriteTotalDiff(IStepDifference totalDiff);
-        void WriteModuleDiff(string moduleName, IStepDifference moduleDiff);
-        void WriteFileDiff(string fileName, IStepDifference fileDiff);
-        void Close();
+        void WriteModuleDiffList(List<CodingDocumentCreateService.ModuleDifferrenceList> moduleDiffList);
     }
 }

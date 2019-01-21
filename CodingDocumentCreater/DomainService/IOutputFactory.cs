@@ -5,7 +5,6 @@
     /// </summary>
     public interface IOutputFactory
     {
-        IFunctionListOutput CreateFunctionListOutput();
         ICodingDocumentOutput CreateCodingDocumentOutput();
     }
 }

@@ -50,13 +50,11 @@
     <Compile Include="DomainService\CodingDocumentCreateService.cs" />
     <Compile Include="DomainService\CodingDocumentMultiOutput.cs" />
     <Compile Include="DomainService\ICodingDocumentOutput.cs" />
-    <Compile Include="DomainService\IFunctionListOutput.cs" />
     <Compile Include="DomainService\IOutputFactory.cs" />
     <Compile Include="DomainService\KazoeciaoQueryService.cs" />
     <Compile Include="Infrastructure\CodingDocumentOutputExcel.cs" />
     <Compile Include="Infrastructure\CodingDocumentOutputWord.cs" />
-    <Compile Include="Infrastructure\FunctionListOutputExcel.cs" />
-    <Compile Include="Infrastructure\OutputConsole.cs" />
+    <Compile Include="Infrastructure\OperateWord.cs" />
     <Compile Include="Infrastructure\OutputFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

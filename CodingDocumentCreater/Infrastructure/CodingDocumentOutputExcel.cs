@@ -10,48 +10,39 @@ using OperrateExcel;
 
 namespace CodingDocumentCreater.Infrastructure
 {
-    public class CodingDocumentOutputExcel : OperateExcel, ICodingDocumentOutput
+    public class CodingDocumentOutputExcel : ICodingDocumentOutput
     {
-        int rowIndex = 1;
-
-        public void Open()
+        public void WriteModuleDiffList(List<CodingDocumentCreateService.ModuleDifferrenceList> moduleDiffList)
         {
-            Open(@"template\内部仕様書_Template.xlsx");
-            rowIndex = 1;
-        }
+            int rowIndex = 1;
+            using (var excel = new OperateExcel())
+            {
+                excel.Open(@"template\内部仕様書_Template.xlsx");
 
-        public new void Close()
-        {
-            if(!System.IO.Directory.Exists(@".\out"))
-                System.IO.Directory.CreateDirectory(@".\out");
+                for(int i=0; i<moduleDiffList.Count; i++)
+                {
+                    excel.Write(rowIndex, 1, moduleDiffList[i].Name);
+                    rowIndex++;
+                    for (int j = 0; j < moduleDiffList[i].ModulesDiff.Count; j++)
+                    {
+                        string[] values = {
+                            moduleDiffList[i].ModulesDiff[j].Name,
+                            moduleDiffList[i].ModulesDiff[j].Difference.NewAddedStepNum.ToString(),
+                            moduleDiffList[i].ModulesDiff[j].Difference.ModifiedStepNum.ToString(),
+                            moduleDiffList[i].ModulesDiff[j].Difference.DeletedStepNum.ToString(),
+                            moduleDiffList[i].ModulesDiff[j].Difference.MeasuredStepNum().ToString(),
+                            moduleDiffList[i].ModulesDiff[j].Difference.DiversionStepNum.ToString(),
+                        };
+                        excel.Write(rowIndex, 1, values);
+                        rowIndex++;
+                    }
+                    rowIndex++;
+                }
 
-            Save(@"out\内部仕様書.xlsx");
-            base.Close();
-        }
-
-        public void WriteTotalDiff(IStepDifference funcDiff)
-        {
-            rowIndex++;
-        }
-
-        public void WriteModuleDiff(string moduleName, IStepDifference moduleDiff)
-        {
-            Write(rowIndex, 1, moduleName);
-            rowIndex++;
-        }
-
-        public void WriteFileDiff(string fileName, IStepDifference fileDiff)
-        {
-            string[] values = {
-                fileName,
-                fileDiff.NewAddedStepNum.ToString(),
-                fileDiff.ModifiedStepNum.ToString(),
-                fileDiff.DeletedStepNum.ToString(),
-                //fileDiff.MeasuredStepNum().ToString(),
-                fileDiff.DiversionStepNum.ToString(),
-            };
-            Write(rowIndex, 1, values);
-            rowIndex++;
+                if(!System.IO.Directory.Exists(@".\out"))
+                    System.IO.Directory.CreateDirectory(@".\out");
+                excel.Save(@"out\内部仕様書.xlsx");
+            }
         }
     }
 }
