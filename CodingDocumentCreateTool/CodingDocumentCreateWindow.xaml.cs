@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodingDocumentCreater.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -91,7 +92,8 @@ namespace CodingDocumentCreateTool
                 double diversionCoefficient = double.Parse(comboboxDiversionCoefficient.Text);
                 App.DocumentCreateService.CreateCodingDocument(kazoecioOutputFilePath, viewModel.GetList(), diversionCoefficient);
                 Mouse.OverrideCursor = null;
-                MessageBox.Show("完了！", Properties.Resources.ToolName, MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("完了！\nエクスプローラで出力先を開きます…", Properties.Resources.ToolName, MessageBoxButton.OK, MessageBoxImage.Information);
+                System.Diagnostics.Process.Start(Setting.OutputDirectory);
                 Close();
             }
             catch(Exception ex)

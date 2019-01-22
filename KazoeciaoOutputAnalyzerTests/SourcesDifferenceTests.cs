@@ -35,8 +35,8 @@ namespace KazoeciaoOutputAnalyzer.Tests
             Assert.AreEqual(5, sourcesDiff.DeletedStepNum);
             //Assert.AreEqual(20, sourcesDiff.OldTotalStepNum);
             Assert.AreEqual(10, sourcesDiff.DiversionStepNum);
-            Assert.AreEqual(15, sourcesDiff.MeasuredStepNum());
-            Assert.AreEqual(15, sourcesDiff.MeasuredStepNumWithDiversion());
+            Assert.AreEqual(10, sourcesDiff.MeasuredStepNum());
+            Assert.AreEqual(10, sourcesDiff.MeasuredStepNumWithDiversion());
         }
 
         [TestMethod()]

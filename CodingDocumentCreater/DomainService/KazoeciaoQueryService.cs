@@ -51,10 +51,11 @@ namespace CodingDocumentCreater.DomainService
         public List<ModuleDifferrenceListDTO> QueryModuleDifferrenceList(string kazoeciaoOutputPath, List<string> directoryPaths, double diversionCoefficient)
         {
             var soucesDiff = kazoeciaoReader.Read(kazoeciaoOutputPath)
-                                .SelectModefied().
-                                ChangeDiversionCoefficient(diversionCoefficient);
+                                .SelectModefied()
+                                .SelectByDirectoryPath(directoryPaths.ToArray())
+                                .ChangeDiversionCoefficient(diversionCoefficient);
 
-            var modules = new List<ModuleDifferrenceListDTO>();
+            var moduleList = new List<ModuleDifferrenceListDTO>();
             var total = new List<ModuleDifferrenceDTO>();
             
             foreach (var dir in directoryPaths)
@@ -67,13 +68,13 @@ namespace CodingDocumentCreater.DomainService
                 {
                     module.Add(new ModuleDifferrenceDTO(file, moduleDiff.SelectByFileName(file)));
                 }
-                module.Add(new ModuleDifferrenceDTO("合計", soucesDiff));
-                modules.Add(new ModuleDifferrenceListDTO(dir, module));
+                module.Add(new ModuleDifferrenceDTO("合計", moduleDiff));
+                moduleList.Add(new ModuleDifferrenceListDTO(dir, module));
             }
-            total.Add(new ModuleDifferrenceDTO("合計", soucesDiff.SelectByDirectoryPath(directoryPaths.ToArray())));
-            modules.Insert(0, new ModuleDifferrenceListDTO("全体", total));
+            total.Add(new ModuleDifferrenceDTO("合計", soucesDiff));
+            moduleList.Insert(0, new ModuleDifferrenceListDTO("全体", total));
 
-            return modules;
+            return moduleList;
         }
     }
 }

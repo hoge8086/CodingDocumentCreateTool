@@ -100,7 +100,7 @@ namespace KazoeciaoOutputAnalyzer
         /// <returns></returns>
         public int MeasuredStepNum()
         {
-            return NewAddedStepNum + ModifiedStepNum + DeletedStepNum;
+            return NewAddedStepNum + ModifiedStepNum;
         }
 
         // 修正行数

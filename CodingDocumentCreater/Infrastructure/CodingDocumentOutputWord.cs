@@ -9,7 +9,7 @@ namespace CodingDocumentCreater.Infrastructure
 
     public class CodingDocumentOutputWord : ICodingDocumentOutput
     {
-        public void WriteModuleDiffList(List<ModuleDifferrenceListDTO> moduleDiffList)
+        public void WriteModuleDiffList(List<ModuleDifferrenceListDTO> moduleDiffList, double diversionCoefficient)
         {
             using (var word = new OperateWord())
             {
@@ -25,12 +25,13 @@ namespace CodingDocumentCreater.Infrastructure
                         total.ModulesDiff[i].Difference.DeletedStepNum.ToString(),
                         total.ModulesDiff[i].Difference.MeasuredStepNum().ToString(),
                         total.ModulesDiff[i].Difference.DiversionStepNum.ToString(),
+                        total.ModulesDiff[i].Difference.MeasuredStepNumWithDiversion().ToString(),
                     };
                     word.Write(3, values);
                 }
-                if(!System.IO.Directory.Exists(@".\out"))
-                    System.IO.Directory.CreateDirectory(@".\out");
-                word.Save(@"out\内部仕様書.docx");
+                if(!System.IO.Directory.Exists(Setting.OutputDirectory))
+                    System.IO.Directory.CreateDirectory(Setting.OutputDirectory);
+                word.Save(System.IO.Path.Combine(Setting.OutputDirectory, "内部仕様書.docx"));
             }
         }
 

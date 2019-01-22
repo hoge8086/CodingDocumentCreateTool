@@ -6,6 +6,6 @@ namespace CodingDocumentCreater.DomainService
 {
     public interface ICodingDocumentOutput
     {
-        void WriteModuleDiffList(List<ModuleDifferrenceListDTO> moduleDiffList);
+        void WriteModuleDiffList(List<ModuleDifferrenceListDTO> moduleDiffList, double diversionCoefficient);
     }
 }

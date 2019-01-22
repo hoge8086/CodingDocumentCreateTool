@@ -58,6 +58,7 @@
     <Compile Include="Infrastructure\CodingDocumentOutputWord.cs" />
     <Compile Include="Infrastructure\OperateWord.cs" />
     <Compile Include="Infrastructure\OutputFactory.cs" />
+    <Compile Include="Infrastructure\Setting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -60,7 +60,7 @@ namespace CodingDocumentCreater.DomainService
         public void CreateCodingDocument(string kazoeciaoOutputPath, List<string> directoryPaths, double diversionCoefficient)
         {
             var report = this.query.QueryModuleDifferrenceList(kazoeciaoOutputPath, directoryPaths, diversionCoefficient);
-            outputFactory.CreateCodingDocumentOutput().WriteModuleDiffList(report);
+            outputFactory.CreateCodingDocumentOutput().WriteModuleDiffList(report, diversionCoefficient);
         }
 
     }
