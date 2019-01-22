@@ -9,14 +9,13 @@ namespace CodingDocumentCreater.Infrastructure
 
     public class CodingDocumentOutputWord : ICodingDocumentOutput
     {
-        public void WriteModuleDiffList(List<CodingDocumentCreateService.ModuleDifferrenceList> moduleDiffList)
+        public void WriteModuleDiffList(List<ModuleDifferrenceListDTO> moduleDiffList)
         {
             using (var word = new OperateWord())
             {
-
                 word.Open(@"Template\内部仕様書_Template.docx");
 
-                var total = moduleDiffList[moduleDiffList.Count - 1];
+                var total = moduleDiffList[0];
                 for(int i=0; i<total.ModulesDiff.Count; i++)
                 {
                     string[] values = {

@@ -32,64 +32,6 @@ namespace CodingDocumentCreater.DomainService
         }
 
         /// <summary>
-        /// モジュール差分
-        /// </summary>
-        public class ModuleDifferrenceDTO
-        {
-            public string Name { get; private set; }
-            public SourcesDifference Defference { get; private set; }
-            public ModuleDifferrenceDTO(string name, SourcesDifference defference)
-            {
-                this.Name = name;
-                this.Defference = defference;
-            }
-        }
-        /// <summary>
-        /// 指定モジュール群のモジュール単位の差分一覧を取得する
-        /// </summary>
-        /// <param name="kazoeciaoOutputPath"></param>
-        /// <param name="directoryPaths"></param>
-        /// <param name="diversionCoefficient"></param>
-        /// <returns></returns>
-        public IEnumerable<ModuleDifferrenceDTO> QueryModuleDifferences(string kazoeciaoOutputPath, List<string> directoryPaths, double diversionCoefficient)
-        {
-            var soucesDiff = kazoeciaoReader.Read(kazoeciaoOutputPath)
-                                .SelectModefied().
-                                ChangeDiversionCoefficient(diversionCoefficient);
-
-            var modules = new List<ModuleDifferrenceDTO>();
-            foreach(var dir in directoryPaths)
-            {
-                modules.Add(new ModuleDifferrenceDTO(dir, soucesDiff.SelectByDirectoryPath(dir)));
-            }
-            modules.Add(new ModuleDifferrenceDTO("合計", soucesDiff.SelectByDirectoryPath(directoryPaths.ToArray())));
-            return modules;
-        }
-
-        /// <summary>
-        /// 指定モジュールのファイル単位の差分一覧を取得する
-        /// </summary>
-        /// <param name="kazoeciaoOutputPath"></param>
-        /// <param name="directoryPath"></param>
-        /// <param name="diversionCoefficient"></param>
-        /// <returns></returns>
-        public IEnumerable<ModuleDifferrenceDTO> QueryModuleFileDifferences(string kazoeciaoOutputPath, string directoryPath, double diversionCoefficient)
-        {
-            var soucesDiff = kazoeciaoReader.Read(kazoeciaoOutputPath)
-                                    .SelectModefied()
-                                    .SelectByDirectoryPath(directoryPath)
-                                    .ChangeDiversionCoefficient(diversionCoefficient);
-
-            var modules = new List<ModuleDifferrenceDTO>();
-            foreach(var file in soucesDiff.FileNames())
-            {
-                modules.Add(new ModuleDifferrenceDTO(file, soucesDiff.SelectByFileName(file)));
-            }
-            modules.Add(new ModuleDifferrenceDTO("合計", soucesDiff));
-            return modules;
-        }
-
-        /// <summary>
         /// デフォルトの修正モジュール一覧を取得する
         /// </summary>
         /// <param name="kazoeciaoOutputPath"></param>
@@ -98,6 +40,40 @@ namespace CodingDocumentCreater.DomainService
         {
             var sourcesDiff = kazoeciaoReader.Read(kazoeciaoOutputPath).SelectModefied();
             return sourcesDiff.DirectoryPaths();
+        }
+
+        /// <summary>
+        /// モジュール差分のレポートを取得する
+        /// </summary>
+        /// <param name="kazoeciaoOutputPath"></param>
+        /// <param name="directoryPaths"></param>
+        /// <param name="diversionCoefficient"></param>
+        public List<ModuleDifferrenceListDTO> QueryModuleDifferrenceList(string kazoeciaoOutputPath, List<string> directoryPaths, double diversionCoefficient)
+        {
+            var soucesDiff = kazoeciaoReader.Read(kazoeciaoOutputPath)
+                                .SelectModefied().
+                                ChangeDiversionCoefficient(diversionCoefficient);
+
+            var modules = new List<ModuleDifferrenceListDTO>();
+            var total = new List<ModuleDifferrenceDTO>();
+            
+            foreach (var dir in directoryPaths)
+            {
+                var moduleDiff = soucesDiff.SelectByDirectoryPath(dir);
+                total.Add(new ModuleDifferrenceDTO(dir, moduleDiff));
+
+                var module = new List<ModuleDifferrenceDTO>();
+                foreach (var file in moduleDiff.FileNames())
+                {
+                    module.Add(new ModuleDifferrenceDTO(file, moduleDiff.SelectByFileName(file)));
+                }
+                module.Add(new ModuleDifferrenceDTO("合計", soucesDiff));
+                modules.Add(new ModuleDifferrenceListDTO(dir, module));
+            }
+            total.Add(new ModuleDifferrenceDTO("合計", soucesDiff.SelectByDirectoryPath(directoryPaths.ToArray())));
+            modules.Insert(0, new ModuleDifferrenceListDTO("全体", total));
+
+            return modules;
         }
     }
 }

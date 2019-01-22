@@ -19,7 +19,7 @@ namespace CodingDocumentCreater.DomainService
             this.outputs = outputs;
         }
 
-        public void WriteModuleDiffList(List<CodingDocumentCreateService.ModuleDifferrenceList> moduleDiffList)
+        public void WriteModuleDiffList(List<ModuleDifferrenceListDTO> moduleDiffList)
         {
             foreach(var output in outputs)
             {

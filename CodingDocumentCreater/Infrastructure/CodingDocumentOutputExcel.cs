@@ -12,7 +12,7 @@ namespace CodingDocumentCreater.Infrastructure
 {
     public class CodingDocumentOutputExcel : ICodingDocumentOutput
     {
-        public void WriteModuleDiffList(List<CodingDocumentCreateService.ModuleDifferrenceList> moduleDiffList)
+        public void WriteModuleDiffList(List<ModuleDifferrenceListDTO> moduleDiffList)
         {
             int rowIndex = 1;
             using (var excel = new OperateExcel())

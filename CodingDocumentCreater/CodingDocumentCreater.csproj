@@ -52,6 +52,8 @@
     <Compile Include="DomainService\ICodingDocumentOutput.cs" />
     <Compile Include="DomainService\IOutputFactory.cs" />
     <Compile Include="DomainService\KazoeciaoQueryService.cs" />
+    <Compile Include="DomainService\ModuleDifferrenceDTO.cs" />
+    <Compile Include="DomainService\ModuleDifferrenceListDTO.cs" />
     <Compile Include="Infrastructure\CodingDocumentOutputExcel.cs" />
     <Compile Include="Infrastructure\CodingDocumentOutputWord.cs" />
     <Compile Include="Infrastructure\OperateWord.cs" />

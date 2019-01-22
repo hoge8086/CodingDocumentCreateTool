@@ -14,11 +14,13 @@ namespace CodingDocumentCreater.DomainService
     {
         IOutputFactory outputFactory = null;
         IKazoeciaoOutputReader kazoeciaoReader = null;
+        KazoeciaoQueryService query = null;
 
         public CodingDocumentCreateService(IOutputFactory outputFactory, IKazoeciaoOutputReader kazoeciaoReader)
         {
             this.outputFactory = outputFactory;
             this.kazoeciaoReader = kazoeciaoReader;
+            this.query = new KazoeciaoQueryService(kazoeciaoReader);
         }
         
         /// <summary>
@@ -57,29 +59,8 @@ namespace CodingDocumentCreater.DomainService
         /// <param name="diversionCoefficient"></param>
         public void CreateCodingDocument(string kazoeciaoOutputPath, List<string> directoryPaths, double diversionCoefficient)
         {
-            var soucesDiff = kazoeciaoReader.Read(kazoeciaoOutputPath)
-                                .SelectModefied().
-                                ChangeDiversionCoefficient(diversionCoefficient);
-
-            var modules = new List<ModuleDifferrenceList>();
-            var total = new List<ModuleDifferrence>();
-            
-            foreach (var dir in directoryPaths)
-            {
-                total.Add(new ModuleDifferrence(dir, soucesDiff.SelectByDirectoryPath(dir)));
-
-                var module = new List<ModuleDifferrence>();
-                foreach (var file in soucesDiff.FileNames())
-                {
-                    module.Add(new ModuleDifferrence(file, soucesDiff.SelectByFileName(file)));
-                }
-                module.Add(new ModuleDifferrence("合計", soucesDiff));
-                modules.Add(new ModuleDifferrenceList(dir, module));
-            }
-            total.Add(new ModuleDifferrence("合計", soucesDiff.SelectByDirectoryPath(directoryPaths.ToArray())));
-            modules.Add(new ModuleDifferrenceList("全体", total));
-
-            outputFactory.CreateCodingDocumentOutput().WriteModuleDiffList(modules);
+            var report = this.query.QueryModuleDifferrenceList(kazoeciaoOutputPath, directoryPaths, diversionCoefficient);
+            outputFactory.CreateCodingDocumentOutput().WriteModuleDiffList(report);
         }
 
     }

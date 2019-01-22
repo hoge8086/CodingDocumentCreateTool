@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodingDocumentCreater.DomainService;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,18 +32,24 @@ namespace CodingDocumentCreateTool
             this.directoryPaths = directoryPaths;
             this.diversionCoefficient = diversionCoefficient;
             this.DataContext = viewModel;
-
-            comboBoxSelectedModule.Items.Add("全てのモジュール");
-            for(int i=directoryPaths.Count()-1; i>=0; i--)
-                comboBoxSelectedModule.Items.Add(directoryPaths[i]);
-            comboBoxSelectedModule.SelectedIndex = 0;
         }
+
+        List<ModuleDifferrenceListDTO> moduleList = null;
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             try
             {
-                LoadModule();
+                moduleList = App.QueryService.QueryModuleDifferrenceList(kazoeciaoOutputPath, directoryPaths, diversionCoefficient);
+                for(int i=0; i<moduleList.Count; i++)
+                {
+                    ComboBoxItem item = new ComboBoxItem();
+                    item.Content = moduleList[i].Name;
+                    item.Tag = moduleList[i].ModulesDiff;
+                    comboBoxSelectedModule.Items.Add(item);
+                }
+                comboBoxSelectedModule.SelectedIndex = 0;
+                DrawGrid();
             }
             catch(Exception ex)
             {
@@ -51,18 +58,10 @@ namespace CodingDocumentCreateTool
             }
         }
 
-        private void LoadModule()
+        private void DrawGrid()
         {
-            if(comboBoxSelectedModule.SelectedIndex == 0)
-            {
-                var modules = App.QueryService.QueryModuleDifferences(kazoeciaoOutputPath, directoryPaths, diversionCoefficient);
-                viewModel.Modules = modules.Select((x) => new CodingDocumentPreviewViewModel.Module(x)).ToList();
-            }else
-            {
-                string directory = comboBoxSelectedModule.SelectedValue as string;
-                var modules = App.QueryService.QueryModuleFileDifferences(kazoeciaoOutputPath, directory, diversionCoefficient);
-                viewModel.Modules = modules.Select((x) => new CodingDocumentPreviewViewModel.Module(x)).ToList();
-            }
+            var diff = (List<ModuleDifferrenceDTO>)(((ComboBoxItem)comboBoxSelectedModule.SelectedItem).Tag);
+            viewModel.Modules = diff.Select((x) => new CodingDocumentPreviewViewModel.Module(x)).ToList();
         }
 
         private void ClickButton(object sender, RoutedEventArgs e)
@@ -72,7 +71,7 @@ namespace CodingDocumentCreateTool
 
         private void SelectModuleChanged(object sender, SelectionChangedEventArgs e)
         {
-            LoadModule();
+            DrawGrid();
         }
     }
 }

@@ -20,13 +20,13 @@ namespace CodingDocumentCreateTool
             public string DeletedStepNum { get; set; }
             public string DiversionStepNum { get; set; }
 
-            public Module(KazoeciaoQueryService.ModuleDifferrenceDTO moduleDiff)
+            public Module(ModuleDifferrenceDTO moduleDiff)
             {
                 this.ModuleName = moduleDiff.Name;
-                this.NewAddedStepNum = moduleDiff.Defference.NewAddedStepNum.ToString();
-                this.ModifiedStepNum = moduleDiff.Defference.ModifiedStepNum.ToString();
-                this.DeletedStepNum = moduleDiff.Defference.DeletedStepNum.ToString();
-                this.DiversionStepNum = moduleDiff.Defference.DiversionStepNum.ToString();
+                this.NewAddedStepNum = moduleDiff.Difference.NewAddedStepNum.ToString();
+                this.ModifiedStepNum = moduleDiff.Difference.ModifiedStepNum.ToString();
+                this.DeletedStepNum = moduleDiff.Difference.DeletedStepNum.ToString();
+                this.DiversionStepNum = moduleDiff.Difference.DiversionStepNum.ToString();
             }
         }
 
